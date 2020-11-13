@@ -1,25 +1,82 @@
-import logo from './logo.svg';
+//import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Container from './components/container';
+import Home from './components/home';
+import NavBar from './components/navbar';
+import {Link, Switch, Route, BrowserRouter} from 'react-router-dom'
 
 function App() {
+  const [state, setState] = useState({
+    checked: [
+      {id: 1, isChecked: true, task: "learn react"},
+      {id: 2, isChecked: false, task: "learn azure"},
+      {id: 3, isChecked: false, task: "finsh pibss"},
+      {id: 4, isChecked: true, task: "learn machine"},
+    ],
+    firstName: "",
+    lastName: "",
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <NavBar />
+    <Container />
+    </>
+    
   );
+
 }
 
 export default App;
+
+
+/***
+ * 
+
+ <div className="container App">
+        <div className="title">Bob's Hot Dogs</div>
+        <div className="body">
+          <p className="subtitle">Color Palette</p>
+          <div className="d-flex justify-content-center">
+            <div className="left">
+                <div className="containingDiv">
+                  <div className="longChildDiv first">
+                    
+                  </div>
+                  <div>
+                  <div className="leftSmall firstSmallDiv"></div>
+                  </div>
+                </div>
+            </div>
+            <div className="left second">
+                <div className="containingDiv">
+                    <div className="longChildDiv secondFirst"></div>
+                    <div className="secondSmallDiv">
+                        <div className="leftSmall secondSmallDiv2"></div>
+                    </div>
+                </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="displayText">
+            <p className="subtitle">Display Font</p>
+            <p className="text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Maecenas semper eros nisl, sit amet facilisis velit laoreet in. Etiam lacinia at magna ac aliquam. 
+            Etiam tempor lectus nec turpis dignissim, quis laoreet risus fermentum.
+            Donec fermentum fermentum ipsum ac pharetra. Donec non sapien eget ex auctor vehicula. 
+            Phasellus ex massa, elementum nec arcu vel, finibus porta quam. Quisque eget purus at ligula porttitor rhoncus ut in ipsum. 
+            Proin auctor nulla id tempor laoreet.
+            </p>
+            <p className="text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Maecenas semper eros nisl, sit amet facilisis velit laoreet in. Etiam lacinia at magna ac aliquam. 
+            Etiam tempor lectus nec turpis dignissim, quis laoreet risus fermentum.
+            Donec fermentum fermentum ipsum ac pharetra. Donec non sapien eget ex auctor vehicula. 
+            Phasellus ex massa, elementum nec arcu vel, finibus porta quam. Quisque eget purus at ligula porttitor rhoncus ut in ipsum. 
+            Proin auctor nulla id tempor laoreet.
+            </p>
+      </div>
+ */
