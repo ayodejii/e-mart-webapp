@@ -10,24 +10,24 @@ class NavBarRx extends Component {
         return(
             <BrowserRouter>
             <Navbar bg="light" expand="lg">
-            <Navbar.Brand><Link to="/">React-Bootstrap</Link></Navbar.Brand>
+            <Navbar.Brand><Link to="/">O</Link></Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                 <Nav.Link><Link to="/home">Home</Link></Nav.Link>
                 <Nav.Link><Link to="/shopping-cart">Shopping Cart</Link></Nav.Link>
-                <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                <NavDropdown title="Username" id="basic-nav-dropdown">
+                    <NavDropdown.Item><Link to="my/orders">My Orders</Link></NavDropdown.Item>
+                    <NavDropdown.Item><Link to="admin/admin-orders">Manage Orders</Link></NavDropdown.Item>
+                    <NavDropdown.Item><Link to="admin/admin-products">Manage Products</Link></NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                    <NavDropdown.Item href="#action/3.4">Logout</NavDropdown.Item>
                 </NavDropdown>
                 </Nav>
-                <Form inline>
+                {/* <Form inline>
                 <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                 <Button variant="outline-success">Search</Button>
-                </Form>
+                </Form> */}
             </Navbar.Collapse>
             </Navbar>
     <Switch>
