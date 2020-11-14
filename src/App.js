@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import './App.css';
 import Container from './components/container';
 import Home from './components/home';
-import NavBar from './components/navbar';
-import {Link, Switch, Route, BrowserRouter} from 'react-router-dom'
+import NavBarRx from './components/navbar';
+// import {Link, Switch, Route, BrowserRouter} from 'react-router-dom'
 
 function App() {
   const [state, setState] = useState({
@@ -20,7 +20,7 @@ function App() {
 
   return (
     <>
-    <NavBar />
+    <NavBarRx />
     <Container />
     </>
     
