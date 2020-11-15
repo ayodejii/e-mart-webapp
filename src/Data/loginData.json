@@ -1,0 +1,8 @@
+[
+    {
+        "username": "hizick",
+        "password": "1234qwer",
+        "isAdmin": true,
+        "isLogged": false
+    }
+]

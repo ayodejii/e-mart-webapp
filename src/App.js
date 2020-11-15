@@ -1,26 +1,47 @@
 //import logo from './logo.svg';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Container from './components/container';
 import Home from './components/home';
 import NavBarRx from './components/navbar';
+import loginData from './Data/loginData.json'
 // import {Link, Switch, Route, BrowserRouter} from 'react-router-dom'
 
 function App() {
   const [state, setState] = useState({
-    checked: [
-      {id: 1, isChecked: true, task: "learn react"},
-      {id: 2, isChecked: false, task: "learn azure"},
-      {id: 3, isChecked: false, task: "finsh pibss"},
-      {id: 4, isChecked: true, task: "learn machine"},
-    ],
-    firstName: "",
-    lastName: "",
+    username: null,
+    password: "",
+    isLogged: false,
+    isAdmin: false
   })
+  useEffect(() => {
+    let logged = localStorage.getItem('user');
+    if(logged){
+    const loggeduser = JSON.parse(logged);
+      setState(loggeduser)
+    }
+  }, [])
+  const handleChange = (event) => {
+    
+    const {name, value} = event.target;
+    setState({...state, [name]: value});
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    let {username, password} = state;
+    const user = loginData.filter(x => x.username === username && x.password === password)[0];
+    if (user) {
+      user.isLogged = true;
+      //isAdmin = user.isAdmin
+      setState(user)
+      localStorage.setItem('user', JSON.stringify(user))
+    }
+  } 
 
   return (
     <>
-    <NavBarRx />
+    <NavBarRx handleChange={handleChange} handleSubmit={handleSubmit} userState={state}/>
     <Container />
     </>
     
