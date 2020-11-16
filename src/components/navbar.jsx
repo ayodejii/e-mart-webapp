@@ -28,13 +28,13 @@ class NavBarRx extends Component {
                 <Nav className="mr-auto">
                 <Nav.Link as={NavLink} to="/home">Home</Nav.Link>
                 <Nav.Link as={NavLink} to="/shopping-cart">Shopping Cart</Nav.Link>
-                {!this.props.userState.isLogged && <Nav.Link as={NavLink} to="/login">Login</Nav.Link>}
-                <NavDropdown title={this.props.userState.isLogged ? this.props.userState.username : "Username"} id="basic-nav-dropdown">
+                {!this.props.logstate.isLogged && <Nav.Link as={NavLink} to="/login">Login</Nav.Link>}
+                <NavDropdown title={this.props.logstate.isLogged ? this.props.logstate.username : "Username"} id="basic-nav-dropdown">
                     <NavDropdown.Item as={NavLink} to="/my-orders">My Orders</NavDropdown.Item>
                     <NavDropdown.Item as={NavLink} to="/admin/admin-orders">Manage Orders</NavDropdown.Item>
                     <NavDropdown.Item as={NavLink} to="/admin/admin-products">Manage Products</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action/3.4">Logout</NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.props.handleLogout}>Logout</NavDropdown.Item>
                 </NavDropdown>
                 </Nav>                
             </Navbar.Collapse>
@@ -45,7 +45,7 @@ class NavBarRx extends Component {
     <Route path="/home" component={Home} />
     <Route path="/shopping-cart" component={ShoppingCart} />
     <Route path="/login" render={() => <Login submitForm={this.props.handleSubmit} 
-    changeForm={this.props.handleChange} user={this.props.userState}/>} />
+    changeForm={this.props.handleChange} user={this.props.logstate}/>} />
     <Route exact path="/admin/admin-orders" component={AdminOrders} />
     <Route exact path="/admin/admin-products" component={AdminProducts} />
     <Route path="/my-orders" component={MyOrders} />
