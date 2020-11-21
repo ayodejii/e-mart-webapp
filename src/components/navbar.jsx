@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Redirect, NavLink, Link, Route, BrowserRouter, Switch} from 'react-router-dom'
 import Home from './home'
 import ShoppingCart from './shopping-cart'
@@ -7,56 +7,99 @@ import AdminOrders from './admin/admin-orders'
 import AdminProducts from './admin/admin-products'
 import MyOrders from './my-orders';
 import Login from './login'
+import loginData from '../Data/loginData.json'
+import Logout from './logout';
 
-class NavBarRx extends Component {
 
-    render()
-    {
-        //const {handleChange} = this.props;
+const NavBarRx = (props) => {
 
-        const isFormValid = (event) => {
-            debugger
-            console.log(event)
+    const [state, setState] = useState({
+        password: "",
+        username: "",
+        isLogged: false,
+        isAdmin: false,
+        errors:{
+          username: "", password: ""
         }
+      })
 
-        return(
-            <BrowserRouter>
-            <Navbar bg="light" expand="lg">
-            <Navbar.Brand><Link to="/">O</Link></Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
-                <Nav.Link as={NavLink} to="/home">Home</Nav.Link>
-                <Nav.Link as={NavLink} to="/shopping-cart">Shopping Cart</Nav.Link>
-                {!this.props.logstate.isLogged && <Nav.Link as={NavLink} to="/login">Login</Nav.Link>}
-                <NavDropdown title={this.props.logstate.isLogged ? this.props.logstate.username : "Username"} id="basic-nav-dropdown">
-                    <NavDropdown.Item as={NavLink} to="/my-orders">My Orders</NavDropdown.Item>
-                    <NavDropdown.Item as={NavLink} to="/admin/admin-orders">Manage Orders</NavDropdown.Item>
-                    <NavDropdown.Item as={NavLink} to="/admin/admin-products">Manage Products</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={this.props.handleLogout}>Logout</NavDropdown.Item>
-                </NavDropdown>
-                </Nav>                
-            </Navbar.Collapse>
-            </Navbar>
-            {/* {this.my} */}
-    <Switch>
-    <Route exact path="/" />
-    <Route path="/home" component={Home} />
-    <Route path="/shopping-cart" component={ShoppingCart} />
-    <Route path="/login" render={() => <Login submitForm={this.props.handleSubmit} 
-    changeForm={this.props.handleChange} user={this.props.logstate}/>} />
-    <Route exact path="/admin/admin-orders" component={AdminOrders} />
-    <Route exact path="/admin/admin-products" component={AdminProducts} />
-    <Route path="/my-orders" component={MyOrders} />
-    <Route render={() => <Redirect to={{pathname: "/"}} />} />
-    </Switch>
+    useEffect(() => {
+    let logged = localStorage.getItem('user');
+    if(logged){
+    const loggeduser = JSON.parse(logged);
+        setState({...state, loggeduser})
+    }
+
+    }, [])
+    const handleChange = (event) => {
+        const {name, value} = event.target;
+        let errors = {...state.errors}
+        switch (name) {
+            case 'username':
+            errors.username = value.length > 5 ? 
+            '' : 'username must be at least five chars'
+            break;
+            case 'password':
+            errors.password = value.length > 5 ? 
+            '' : 'password must be at least five chars'
+            default:
+            break;
+        }
+        setState({...state, errors, [name]: value});
+    }
     
-    </BrowserRouter>
-        )
-    } 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const {username, password} = {...state};
+        const user = loginData.filter(x => x.username === username && x.password === password)[0];
+        if (user) {
+            state.isLogged = true;
+            state.isAdmin = user.isAdmin
+            setState({...state, user})
+            //logstate = {...state}
+            localStorage.setItem('user', JSON.stringify(user))
+            //history.push("/home");
+        }
+    }
     
-    
+
+    return(
+        <BrowserRouter>
+        <Navbar bg="light" expand="lg">
+        <Navbar.Brand><Link to="/">O</Link></Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto">
+            <Nav.Link as={NavLink} to="/home">Home</Nav.Link>
+            <Nav.Link as={NavLink} to="/shopping-cart">Shopping Cart</Nav.Link>
+            {!state.isLogged && <Nav.Link as={NavLink} to='/login'>Login</Nav.Link>}
+            {state.isLogged && <NavDropdown title={state.username} id="basic-nav-dropdown">
+            <NavDropdown.Item as={NavLink} to="/my-orders">My Orders</NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/admin/admin-orders">Manage Orders</NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/admin/admin-products">Manage Products</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <Logout />
+                {/* </Logout> */}
+                {/* <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item> */}
+            </NavDropdown>}
+            </Nav>                
+        </Navbar.Collapse>
+        </Navbar>
+            {/* {my} */}
+        <Switch>
+        <Route exact path="/" />
+        <Route path="/home" component={Home} />
+        <Route path="/shopping-cart" component={ShoppingCart} />
+        <Route path="/login" render={() => <Login submitForm={handleSubmit} 
+        changeForm={handleChange} user={state}/>} />
+        <Route exact path="/admin/admin-orders" component={AdminOrders} />
+        <Route exact path="/admin/admin-products" component={AdminProducts} />
+        <Route path="/my-orders" component={MyOrders} />
+        <Route render={() => <Redirect to={{pathname: "/"}} />} />
+        </Switch>
+        
+        </BrowserRouter>
+    )
 }
 
 export default NavBarRx

@@ -4,67 +4,15 @@ import './App.css';
 import Container from './components/container';
 import Home from './components/home';
 import NavBarRx from './components/navbar';
-import loginData from './Data/loginData.json'
 // import {Link, Switch, Route, BrowserRouter} from 'react-router-dom'
 
 function App() {
-  const [state, setState] = useState({
-    password: "",
-    username: "",
-    isLogged: false,
-    isAdmin: false,
-    errors:{
-      username: "", password: ""
-    }
-  })
-  useEffect(() => {
-    let logged = localStorage.getItem('user');
-    if(logged){
-    const loggeduser = JSON.parse(logged);
-      setState(loggeduser)
-    }
-  }, [])
-  const handleChange = (event) => {
-    const {name, value} = event.target;
-    let errors = {...state.errors}
-    switch (name) {
-      case 'username':
-        errors.username = value.length > 5 ? 
-        '' : 'username must be at least five chars'
-        break;
-      case 'password':
-        errors.password = value.length > 5 ? 
-        '' : 'password must be at least five chars'
-      default:
-        break;
-    }
-    setState({...state, errors, [name]: value});
-  }
-
-  const handleLogout = () => {
-    localStorage.clear()
-  }
   
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const {username, password} = {...state};
-    const user = loginData.filter(x => x.username === username && x.password === password)[0];
-    if (user) {
-      user.isLogged = true;
-      //isAdmin = user.isAdmin
-      setState(user)
-      localStorage.setItem('user', JSON.stringify(user))
-    }
-  } 
+   
 
   return (
     <>
-    <NavBarRx 
-    handleChange={handleChange} 
-    handleSubmit={handleSubmit} 
-    logstate={state}
-    handleLogout={handleLogout}
-    />
+    <NavBarRx/>
     <Container />
     </>
     

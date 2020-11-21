@@ -1,13 +1,13 @@
 import {React, Component} from 'react'
+import {withRouter} from 'react-router-dom'
 
-class Home extends Component
+function Home ()
 {
 
-    render(){
-        return (
+    return (
             <h1 >Hi, this is home</h1>
             
-        )
-    }
+    )
 }
-export default Home
+
+export default withRouter(Home)
