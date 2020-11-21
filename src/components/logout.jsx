@@ -9,7 +9,7 @@ const Logout = (props) => {
     const handleLogout = () => {
         localStorage.clear()
         window.location.reload(false)
-        history.push("/home")
+        history.push("/admin/products-form")
     }
 
     return (

@@ -9,6 +9,8 @@ import MyOrders from './my-orders';
 import Login from './login'
 import loginData from '../Data/loginData.json'
 import Logout from './logout';
+import Container from './container';
+import ProductForm from './admin/products-form';
 
 
 const NavBarRx = (props) => {
@@ -58,6 +60,7 @@ const NavBarRx = (props) => {
             setState({...state, user})
             //logstate = {...state}
             localStorage.setItem('user', JSON.stringify(user))
+            return <Redirect to='/home' />
             //history.push("/home");
         }
     }
@@ -93,9 +96,10 @@ const NavBarRx = (props) => {
         <Route path="/login" render={() => <Login submitForm={handleSubmit} 
         changeForm={handleChange} user={state}/>} />
         <Route exact path="/admin/admin-orders" component={AdminOrders} />
-        <Route exact path="/admin/admin-products" component={AdminProducts} />
-        <Route path="/my-orders" component={MyOrders} />
-        <Route render={() => <Redirect to={{pathname: "/"}} />} />
+        <Route exact path="/admin/products-form" render={() => <ProductForm user={state} />}/>
+        <Route exact path="/admin/admin-products" render={() => <AdminProducts user={state} />} />
+        <Route exact path="/my-orders" component={MyOrders} />
+        <Route exact render={() => <Redirect to={{pathname: "/container"}} />} component={Container}/>
         </Switch>
         
         </BrowserRouter>
