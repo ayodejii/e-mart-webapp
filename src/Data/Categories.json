@@ -1,0 +1,18 @@
+[
+    {
+        "name": "Fruits",
+        "Description": "Fruits"
+    },
+    {
+        "name": "Vegetables",
+        "Description": "Vegetables"
+    },
+    {
+        "name": "Dairy",
+        "Description": "Dairy"
+    },
+    {
+        "name": "African",
+        "Description": "African Dishes"
+    }
+]

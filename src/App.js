@@ -5,14 +5,20 @@ import Container from './components/container';
 import Home from './components/home';
 import NavBarRx from './components/navbar';
 // import {Link, Switch, Route, BrowserRouter} from 'react-router-dom'
+import Categories from './Data/Categories.json'
 
 function App() {
+  const [category, setCategory] = useState({})
   
-   
+  useEffect(()=>{ 
+      setCategory(Categories)
+  },[])
+
+ 
 
   return (
     <>
-    <NavBarRx/>
+    <NavBarRx category={category}/>
     {/* <Container /> */}
     </>
     
