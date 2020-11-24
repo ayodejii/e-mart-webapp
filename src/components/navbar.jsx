@@ -99,6 +99,7 @@ const NavBarRx = (props) => {
         changeForm={handleChange} user={state}/>} />
         <Route exact path="/admin/admin-orders" component={AdminOrders} />
         <Route exact path="/admin/products-form" render={() => <ProductForm category={props.category} user={state} />}/>
+        <Route exact path="/admin/products-form/:productId" render={(props) => <ProductForm {...props} category={props.category} user={state} />}/>
         <Route exact path="/admin/admin-products" render={() => <AdminProducts user={state} />} />
         <Route exact path="/my-orders" component={MyOrders} />
         <Route exact render={() => <Redirect to={{pathname: "/container"}} />} component={Container}/>

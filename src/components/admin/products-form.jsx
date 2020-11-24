@@ -1,21 +1,35 @@
 import {React, useEffect, useState} from 'react'
-import {Redirect, withRouter, useHistory} from 'react-router-dom'
+import {Redirect, withRouter, useHistory, Link} from 'react-router-dom'
 import {Form, Button, InputGroup} from 'react-bootstrap'
 import ProductCard from '../product-card'
+import Products from '../../Data/Products.json'
 
 function ProductForm(props)
 {
     const [products, setProducts] = useState({
-        product: {product: "", price: "", imageUrl: "", category: ""},
+        product: {title: "", price: "", imageUrl: "", category: ""},
         errors: {
             product: "", price: "", imageUrl: "", category: "", isvalid: false
         }
     })
+
+    let vproduct;
+
+    useEffect(() => {
+    //console.log(props.match.params.productId)
+    const productId = props.match.params.productId
+    if (productId)
+        vproduct = Products.filter(x => x.Id == productId)[0]
+        setProducts({...products, vproduct})
+    }, [])
+
     const history = useHistory()
+    let formValues = products.product
 
     if (props.user.isAdmin){
     
         const handleChange = (e) => {
+             
             const {name, value} = e.target
             const errors = {...products.errors}
             switch (name) {
@@ -33,8 +47,9 @@ function ProductForm(props)
                 default:
                     break;
             }
-            
-            setProducts({...products, errors, [name]: value})
+            formValues[name] = value
+            setProducts({...products, errors, formValues})
+            // console.log(products.product)
         }
 
         const setRedBorder = (err) => {
@@ -48,7 +63,7 @@ function ProductForm(props)
         }
 
     const errorSpan = (err) => <span style={{color: "red"}}>{err}</span>
-
+    console.log(products.product.title)
     return (   
         <div className="row container" style={{marginLeft: "10%", marginTop: "10pt"}}>
             <div className="col-md-6">
@@ -56,7 +71,8 @@ function ProductForm(props)
                     
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Title</Form.Label>
-                        <Form.Control style={setRedBorder(products.errors.product)} type="text" placeholder="Product" name="product" onChange={handleChange}
+                        <Form.Control style={setRedBorder(products.errors.product)} type="text" placeholder="Product"
+                         value={products.product.title} name="product" onChange={handleChange}
                                 />
                         {products.errors.product.length > 0 && errorSpan(products.errors.product)}
 
@@ -75,7 +91,7 @@ function ProductForm(props)
                         {products.errors.price.length > 0 && errorSpan(products.errors.price)}
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicCategory">
+                    {/* <Form.Group controlId="formBasicCategory">
                         <Form.Label>Category</Form.Label>
                         <Form.Control name="category" style={setRedBorder(products.errors.category)} onChange={handleChange} as="select" defaultValue="Choose...">
                             <option>Choose...</option>
@@ -87,7 +103,7 @@ function ProductForm(props)
                         </Form.Control>
                         {products.errors.category.length > 0 && errorSpan(products.errors.category)}
 
-                    </Form.Group>
+                    </Form.Group> */}
 
                     <Form.Group controlId="formBasicImageUrl">
                         <Form.Label>ImageUrl</Form.Label>
@@ -102,7 +118,7 @@ function ProductForm(props)
                 </Form>
             </div>
             <div className="col-md-6">
-                <ProductCard products={products} />
+                <ProductCard allProducts={formValues} />
             </div>
         </div>      
         

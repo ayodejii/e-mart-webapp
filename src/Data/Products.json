@@ -1,17 +1,20 @@
 [
   {
+    "Id": 1,
     "Product": "Pounded Yam",
     "Price": 80,
     "ImageUrl": "https://media.istockphoto.com/photos/nigerian-pounded-yam-served-with-afang-soup-picture-id1262255152?k=6&m=1262255152&s=170667a&w=0&h=kVeQEk38OZoI1Yv2pGDAtopHgXrImL-y4BNbU7WZ8w0=",
     "Category": "African"
   },
   {
+    "Id": 2,
     "Product": "Orange",
     "Price": 0.30,
     "ImageUrl": "https://media.istockphoto.com/photos/orange-fruits-with-slice-picture-id924858708?k=6&m=924858708&s=612x612&w=0&h=ywdgju1T-lQBkVzNALOuqktBbxy861-mlVew-VH9at4=",
     "Category": "Fruits"
   },
   {
+    "Id": 3,
     "Product": "Soya Milk",
     "Price": 20,
     "ImageUrl": "https://s.yimg.com/ny/api/res/1.2/9pty1_qKfOOWkteOZSi_yA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTIwMDA7aD0xMzI1/https://s.yimg.com/os/creatr-uploaded-images/2020-08/ef4f4a60-e0a8-11ea-a37d-6bb9cca4b778",
