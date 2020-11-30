@@ -27,14 +27,15 @@ const NavBarRx = (props) => {
 
     useEffect(() => {
     let logged = localStorage.getItem('user');
-    if(logged){
-    let loggeduser = {...state}
-    loggeduser = JSON.parse(logged);
-    loggeduser.isLogged = true;
-    setState({...state, loggeduser})
+    if(logged) {
+        let loggeduser = {...state}
+        loggeduser = JSON.parse(logged);
+        loggeduser.isLogged = true;
+        setState({...loggeduser})
     }
 
     }, [])
+
     const handleChange = (event) => {
         const {name, value} = event.target;
         let errors = {...state.errors}
@@ -98,8 +99,8 @@ const NavBarRx = (props) => {
         <Route path="/login" render={() => <Login submitForm={handleSubmit} 
         changeForm={handleChange} user={state}/>} />
         <Route exact path="/admin/admin-orders" component={AdminOrders} />
-        <Route exact path="/admin/products-form" render={() => <ProductForm category={props.category} user={state} />}/>
-        <Route exact path="/admin/products-form/:productId" render={(props) => <ProductForm {...props} category={props.category} user={state} />}/>
+        {/* <Route exact path="/admin/products-form/:id" render={(props) => <ProductForm {...props} category={props.category} user={state} />}/> */}
+        <Route exact path="/admin/products-form/:id" render={(props) => <ProductForm {...props} category={props.category} user={state} />}/>
         <Route exact path="/admin/admin-products" render={() => <AdminProducts user={state} />} />
         <Route exact path="/my-orders" component={MyOrders} />
         <Route exact render={() => <Redirect to={{pathname: "/container"}} />} component={Container}/>

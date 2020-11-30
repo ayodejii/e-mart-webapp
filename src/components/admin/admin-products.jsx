@@ -21,18 +21,23 @@ function AdminProducts (props){
 
     const history = useHistory()
 
+    
+    if(!props.user.isAdmin)
+        return <Redirect to='/home'/>
+    
+
     const takeToPage = () => {
         try {
-            history.push("/admin/products-form", {from: 'AdminProducts'})
+            history.push("/admin/products-form/new", {from: 'AdminProducts'})
             
         } catch (error) {
             console.log(error)
         }
-        //console.log(props.user)
     }
-    
-    if(!props.user.isAdmin)
-        return <Redirect to='/home'/>
+
+    const takeToEdit = (id) => {
+        history.push(`/admin/products-form/${id}`)
+    }
     return (
         <>
         <Button style={style} onClick={takeToPage}>
@@ -50,13 +55,13 @@ function AdminProducts (props){
             <tbody>
             {
                 product.products.map((prdt, i) => {
-                    const { Id, Product, Price, ImageUrl } = prdt                    
+                    const { id, title, price, imageUrl } = prdt                    
                     return (
-                       <tr key={Id}>
+                        <tr key={id}>
                           <td>{i+1}</td>
-                          <td>{Product}</td>
-                          <td>{Price}</td>
-                          <td><Link to={`/admin/products-form/${Id}`}>Edit</Link></td>
+                          <td>{title}</td>
+                          <td>{price}</td>
+                          <td><Button onClick={() => takeToEdit(id)}>Edit</Button></td>
                        </tr>
                     )
                 })

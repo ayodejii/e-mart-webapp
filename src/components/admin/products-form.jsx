@@ -10,24 +10,25 @@ function ProductForm(props)
         product: {title: "", price: "", imageUrl: "", category: ""},
         errors: {
             product: "", price: "", imageUrl: "", category: "", isvalid: false
-        }
+        },
+        id: props.match.params.id
     })
 
-    let vproduct;
-
     useEffect(() => {
-    //console.log(props.match.params.productId)
-    const productId = props.match.params.productId
-    if (productId)
-        vproduct = Products.filter(x => x.Id == productId)[0]
-        setProducts({...products, vproduct})
-    }, [])
+
+    let vproduct = {...products}
+    const id = vproduct.id
+        if (id === "new")
+            return;
+        vproduct.product = Products.filter(x => x.Id == id)[0]
+        setProducts(vproduct)
+    }, [props])
 
     const history = useHistory()
     let formValues = products.product
 
-    if (props.user.isAdmin){
-    
+    if (props.user.isAdmin)
+    {
         const handleChange = (e) => {
              
             const {name, value} = e.target
@@ -51,7 +52,6 @@ function ProductForm(props)
             setProducts({...products, errors, formValues})
             // console.log(products.product)
         }
-
         const setRedBorder = (err) => {
             if(err.length > 0)
             return {border: "solid red 3px"}   
@@ -63,21 +63,21 @@ function ProductForm(props)
         }
 
     const errorSpan = (err) => <span style={{color: "red"}}>{err}</span>
-    console.log(products.product.title)
-    return (   
-        <div className="row container" style={{marginLeft: "10%", marginTop: "10pt"}}>
+    console.log(products)
+    
+        return (
+            <div className="row container" style={{marginLeft: "10%", marginTop: "10pt"}}>
             <div className="col-md-6">
                 <Form>
                     
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Title</Form.Label>
-                        <Form.Control style={setRedBorder(products.errors.product)} type="text" placeholder="Product"
-                         value={products.product.title} name="product" onChange={handleChange}
+                        <Form.Control style={setRedBorder(products.errors.product)} value={products.product.title} type="text" placeholder="Product"
+                         name="product" onChange={handleChange}
                                 />
                         {products.errors.product.length > 0 && errorSpan(products.errors.product)}
 
                     </Form.Group>
-
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Price</Form.Label>
                     
@@ -86,43 +86,18 @@ function ProductForm(props)
                             <InputGroup.Text>NGN</InputGroup.Text>
                         </InputGroup.Prepend>
                         <Form.Control style={setRedBorder(products.errors.price)} type="text" placeholder="Price" 
-                            name="price" onChange={handleChange}/>
+                            name="price" onChange={handleChange} value={products.product.price} />
                         </InputGroup>
                         {products.errors.price.length > 0 && errorSpan(products.errors.price)}
                     </Form.Group>
-
-                    {/* <Form.Group controlId="formBasicCategory">
-                        <Form.Label>Category</Form.Label>
-                        <Form.Control name="category" style={setRedBorder(products.errors.category)} onChange={handleChange} as="select" defaultValue="Choose...">
-                            <option>Choose...</option>
-                            {
-                                props.category.map(ctgry => {
-                                return <option value={ctgry.name} key={ctgry.name}>{ctgry.Description}</option>
-                                })
-                            }
-                        </Form.Control>
-                        {products.errors.category.length > 0 && errorSpan(products.errors.category)}
-
-                    </Form.Group> */}
-
-                    <Form.Group controlId="formBasicImageUrl">
-                        <Form.Label>ImageUrl</Form.Label>
-                    <Form.Control type="text" onChange={handleChange} placeholder="Image" 
-                        name="imageUrl"/>
-                        {/* {props.user.errors.password.length > 0 && errorSpan(props.user.errors.password)} */}
-                    </Form.Group>
-                    <Button onClick={handleSubmit} variant="primary" type="button">
-                        Save
-                    </Button>
-                    <Form.Text className="text-muted">this will not save cos react cannot write into file from browser.</Form.Text>
+                    
                 </Form>
             </div>
             <div className="col-md-6">
                 <ProductCard allProducts={formValues} />
             </div>
-        </div>      
-        
-        );
+        </div>
+        )
     }
     return <Redirect to="/home" />
     
