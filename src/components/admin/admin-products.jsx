@@ -6,12 +6,12 @@ import Products from '../../Data/Products.json'
 
 function AdminProducts (props){
     
-    const [product, setProduct] = useState({
-        products:[]
-    })
+    const [product, setProduct] = useState([]
+        //products:[]
+    )
 
     useEffect(() => {
-        setProduct({products: Products})
+        setProduct(Products)
     }, [])
 
     const style = {
@@ -20,7 +20,6 @@ function AdminProducts (props){
     }
 
     const history = useHistory()
-
     
     if(!props.user.isAdmin)
         return <Redirect to='/home'/>
@@ -54,7 +53,7 @@ function AdminProducts (props){
             </thead>
             <tbody>
             {
-                product.products.map((prdt, i) => {
+                product.map((prdt, i) => {
                     const { id, title, price, imageUrl } = prdt                    
                     return (
                         <tr key={id}>

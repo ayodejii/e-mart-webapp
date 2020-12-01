@@ -4,13 +4,13 @@ import {Card, Button} from 'react-bootstrap'
 
 function ProductCard(props)
 {
-    const {product, category, price, imageUrl} = props.allProducts
+    const {title, category, price, imageUrl} = props.allProducts
 
     return (
         <Card style={{ width: '24rem' }}>
             <Card.Img variant="top" src={imageUrl} />
             <Card.Body>
-    <Card.Title>{product}</Card.Title>
+    <Card.Title>{title}</Card.Title>
                 <Card.Text>
                     {price}
                 </Card.Text>

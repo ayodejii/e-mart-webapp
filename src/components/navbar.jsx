@@ -67,7 +67,6 @@ const NavBarRx = (props) => {
             //history.push("/home");
         }
     }
-    
 
     return(
         <BrowserRouter>
