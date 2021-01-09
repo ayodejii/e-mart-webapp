@@ -101,10 +101,9 @@ function ProductForm(props)
 
                     <Form.Group controlId="formBasicCategory">
                         <Form.Label>Category</Form.Label>
-                        <Form.Control name="category" value={products.product.category} style={setRedBorder(products.errors.category)} onChange={handleChange} as="select" defaultValue="Choose...">
+                        <Form.Control name="category" value={products.product.category} style={setRedBorder(products.errors.category)} onChange={handleChange} as="select">
                             <option>Choose...</option>
                             {
-                                
                                 category.map(ctgry => {
                                     return <option value={ctgry.name} key={ctgry.name}>{ctgry.Description}</option>
                                 })

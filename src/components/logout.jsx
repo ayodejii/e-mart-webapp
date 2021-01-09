@@ -8,8 +8,10 @@ const Logout = (props) => {
     const history = useHistory();
     const handleLogout = () => {
         localStorage.clear()
-        window.location.reload(false)
-        history.push("/admin/products-form")
+        // debugger
+        //window.location.reload(false)
+        // debugger
+        history.push("/login")
     }
 
     return (

@@ -43,19 +43,18 @@ function AdminProducts (props){
 
     const handleChange = (event) => {
         //const products = filteredProducts
-        //setProduct(products)
         let products = (event.target.value) ? filteredProducts.filter(x => x.title.toLowerCase().includes(event.target.value))
                         : filteredProducts
                         //debugger
-        setProduct(products)
-        //console.log(product)
+        //setProduct(products)
+        console.log(products)
     }
 
     return (
         <>
         <p className="col-md-4">
         <Form.Control type="text" placeholder="Search"
-                         name="title" onChange={handleChange}/>
+                         name="title" onKeyUp={handleChange}/>
         </p>
         <Button style={style} onClick={takeToPage}>
             Add New Product
